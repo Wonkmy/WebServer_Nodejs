@@ -16,7 +16,7 @@ app.get("/uploadData",function(req,res){//注册一个get请求，当服务器�
 	global.gameGold=req.query.gameGold==null?global.gameGold:req.query.gameGold;
 	console.log("食物还有:"+global.gameFood);
 	console.log("黄金还有:"+global.gameGold);
-	res.send("gameFood"+global.gameFood+"|"+"gameGold"+global.gameGold);
+	res.send("gameFood:"+global.gameFood+"|"+"gameGold:"+global.gameGold);
 });
 
 app.put("/uploadData",function(req,res){//服务器接收到客户端的put响应后
