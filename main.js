@@ -14,14 +14,14 @@ app.get("/uploadData",function(req,res){//注册一个get请求，当服务器�
 	//var tempScore=req.query.gameScore==null?global.gameScore:req.query.gameScore;
 	global.gameFood=req.query.gameFood==null?global.gameFood:req.query.gameFood;
 	global.gameGold=req.query.gameGold==null?global.gameGold:req.query.gameGold;
-	console.log("食物还有:"+global.gameFood);
-	console.log("黄金还有:"+global.gameGold);
-	res.send("gameFood:"+global.gameFood+"|"+"gameGold:"+global.gameGold);
+	//console.log("食物还有:"+global.gameFood);
+	//console.log("黄金还有:"+global.gameGold);
+	res.send('gameFood:'+global.gameFood+'|'+'gameGold:'+global.gameGold);//  gameFood:10000|gameGold:10000
 });
 
 app.put("/uploadData",function(req,res){//服务器接收到客户端的put响应后
 	//打开一个文件
-	console.log(req.query);
+	//console.log(req.query);
 	var fd=fs.openSync("./uploadFileDB/"+req.query.uploadname+".png","w");//w 的意思是以写的模式打开，注意：这里文件的路径和文件名已经写死
 	req.on("data",function(data){//监听“data”事件
 		//把数据写入到文件中去
@@ -33,3 +33,21 @@ app.put("/uploadData",function(req,res){//服务器接收到客户端的put响�
 		fs.close(fd,function(){})
 	})
 });
+
+app.post("/uploadData",function(req,res){
+	res.send("hello unitypost")
+});
+
+
+function readGameDataJson(){
+	var url="./gamedata.json";
+	var request=new XMLHttpRequest();
+	request.open("get",url);
+	request.send(null);
+	request.onload=function () {
+		if(request.status=200){
+			var json=JSON.parse(request.responseText);
+			console.log(json);
+		}
+	}
+}
